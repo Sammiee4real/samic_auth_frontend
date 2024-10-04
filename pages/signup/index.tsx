@@ -84,7 +84,7 @@ const Signup = () => {
                             </div>
                             <div className="text-center">
                                 <p  className="text-[0.75rem] text-[#8c9097] dark:text-white/50 mt-4">Already have an account? <Link 
-                                        href="/components/authentication/sign-in/signin-basic/" className="text-primary">Sign In</Link></p>
+                                        href="/signin" className="text-primary">Sign In</Link></p>
                             </div>
                             <div className="text-center my-4 authentication-barrier">
                                 <span>OR</span>

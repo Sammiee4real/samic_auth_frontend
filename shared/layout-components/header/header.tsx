@@ -5,13 +5,44 @@ import { connect } from 'react-redux';
 import store from '@/shared/redux/store';
 import Modalsearch from '../modal-search/modalsearch';
 import { basePath } from '@/next.config';
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/navigation";
+import { logOut } from "../../../src/auth/auth.slice";
+import { useAppSelector, useAppDispatch } from "../../../src/state";
+
 
 const Header = ({ local_varaiable, ThemeChanger }:any) => {
 
   const [passwordshow1, setpasswordshow1] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const dispatch = useAppDispatch();
+  const name = cookies?.user? cookies?.user?.user.username : null
+
+  const user = cookies?.user ? cookies?.user?.user?.role_name : null;
+  const router = useRouter();
 
   const data=  <span className="font-[600] py-[0.25rem] px-[0.45rem] rounded-[0.25rem] bg-pink/10 text-pink text-[0.625rem]">Free shipping</span>
 
+
+  useEffect(() =>{
+    console.log("user", user)
+
+  },[])
+
+  const loggedOut = async () => {
+    removeCookie("user");
+    dispatch(logOut());
+
+    router.push("/");
+  
+  };
+  useEffect(() => {
+    // Check if user is authenticated
+    if (!cookies.user) {
+      // If no user cookie, redirect to login
+      router.push('/');
+    }
+  }, [cookies, router]);
   const cartProduct = [
     {
       id: 1,
@@ -775,8 +806,8 @@ const Header = ({ local_varaiable, ThemeChanger }:any) => {
                   <img className="inline-block rounded-full " src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/faces/9.jpg`} width="32" height="32" alt="Image Description" />
                 </button>
                 <div className="md:block hidden dropdown-profile">
-                  <p className="font-semibold mb-0 leading-none text-[#536485] text-[0.813rem] ">Json Taylor</p>
-                  <span className="opacity-[0.7] font-normal text-[#536485] block text-[0.6875rem] ">Web Designer</span>
+                  <p className="font-semibold mb-0 leading-none text-[#536485] text-[0.813rem] ">{name}</p>
+                  <span className="opacity-[0.7] font-normal text-[#536485] block text-[0.6875rem] ">{user}</span>
                 </div>
                 <div
                   className="hs-dropdown-menu ti-dropdown-menu !-mt-3 border-0 w-[11rem] !p-0 border-defaultborder hidden main-header-dropdown  pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
@@ -802,8 +833,8 @@ const Header = ({ local_varaiable, ThemeChanger }:any) => {
                       className="ti ti-wallet text-[1.125rem] me-2 opacity-[0.7]"></i>Bal: $7,12,950</Link></li>
                     <li><Link className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex" href="/components/pages/chat/"><i
                       className="ti ti-headset text-[1.125rem] me-2 opacity-[0.7]"></i>Support</Link></li>
-                    <li><Link className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex" href="/components/authentication/sign-in/signin-cover/"><i
-                      className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>Log Out</Link></li>
+                    <li><button className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex" onClick={ loggedOut}><i
+                      className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>Log Out</button></li>
                   </ul>
                 </div>
               </div>

@@ -12,6 +12,22 @@ const nextConfig = {
     loader: "imgix",
     path: "/",
   },
+  async redirects() {
+    return [
+      {
+        source: '/dashboards/crm', // Or any protected route
+        has: [
+          {
+            type: 'cookie',
+            key: 'user',
+            value: '^(?!$).*$', // Check if user cookie exists
+          },
+        ],
+        destination: '/',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
