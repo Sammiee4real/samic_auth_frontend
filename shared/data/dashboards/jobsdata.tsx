@@ -173,10 +173,10 @@ export class Subscriptions extends Component<{}, spark3> {
                         colors: '#74767c',
                     },
                     markers: {
-                        width: 7,
-                        height: 7,
+                      //  width: 7,
+                       // height: 7,
                         strokeWidth: 0,
-                        radius: 12,
+                       // radius: 12,
                         offsetX: 0,
                         offsetY: 0
                     },

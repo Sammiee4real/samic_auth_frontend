@@ -2217,7 +2217,7 @@ export class Annotations extends Component<{}, spark3> {
                             size: 8,
                             fillColor: '#fff',
                             strokeColor: 'red',
-                            radius: 2,
+                           // radius: 2,
                             cssClass: 'apexcharts-custom-class'
                         },
                         label: {

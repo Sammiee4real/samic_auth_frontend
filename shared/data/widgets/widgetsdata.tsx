@@ -484,8 +484,8 @@ export class Applicants extends Component<{}, spark3> {
             position: 'top',
             fontFamily: 'Inter, sans-serif',
             markers: {
-              width: 10,
-              height: 10,
+              //width: 10,
+              //height: 10,
             }
           },
           xaxis: {
@@ -596,8 +596,8 @@ export class Applicants extends Component<{}, spark3> {
               colors: '#959595',
             },
             markers: {
-              width: 10,
-              height: 10,
+             // width: 10,
+              //height: 10,
             },
           },
           xaxis: {

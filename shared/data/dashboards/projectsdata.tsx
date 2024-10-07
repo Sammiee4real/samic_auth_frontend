@@ -573,8 +573,8 @@ export class ProjectAnalysis extends Component<{}, spark3> {
                         colors: '#acb1b1',
                     },
                     markers: {
-                        width: 10,
-                        height: 10,
+                       // width: 10,
+                       // height: 10,
                     },
                 },
                 stroke: {
