@@ -20,8 +20,10 @@
 .DS_Store
 *.pem
 
-# Ignore environment variables file
-.env
+# local env files
+.env*.local
+.env*
+
 
 # debug
 npm-debug.log*
