@@ -36,13 +36,7 @@ const Header = ({ local_varaiable, ThemeChanger }:any) => {
     router.push("/");
   
   };
-  useEffect(() => {
-    // Check if user is authenticated
-    if (!cookies.user) {
-      // If no user cookie, redirect to login
-      router.push('/');
-    }
-  }, [cookies, router]);
+ 
   const cartProduct = [
     {
       id: 1,
@@ -434,11 +428,7 @@ const Header = ({ local_varaiable, ThemeChanger }:any) => {
                 <div className="horizontal-logo">
                   <Link href="/components/dashboards/crm/" className="header-logo">
                     <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/brand-logos/desktop-logo.png`} alt="logo" className="desktop-logo" />
-                    <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/brand-logos/toggle-logo.png`} alt="logo" className="toggle-logo" />
-                    <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/brand-logos/desktop-dark.png`} alt="logo" className="desktop-dark" />
-                    <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/brand-logos/toggle-dark.png`} alt="logo" className="toggle-dark" />
-                    <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/brand-logos/desktop-white.png`} alt="logo" className="desktop-white" />
-                    <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/brand-logos/toggle-white.png`} alt="logo" className="toggle-white" />
+                    
                   </Link>
                 </div>
               </div>
@@ -449,103 +439,8 @@ const Header = ({ local_varaiable, ThemeChanger }:any) => {
             </div>
             <div className="header-content-right">
 
-              <div className="header-element py-[1rem] md:px-[0.65rem] px-2 header-search">
-                <button aria-label="button" type="button" data-hs-overlay="#search-modal"
-                  className="inline-flex flex-shrink-0 justify-center items-center gap-2  rounded-full font-medium focus:ring-offset-0 focus:ring-offset-white transition-all text-xs dark:bg-bgdark dark:hover:bg-black/20 dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10">
-                  <i className="bx bx-search-alt-2 header-link-icon"></i>
-                </button>
-              </div>
-              <div className="header-element py-[1rem] md:px-[0.65rem] px-2  header-country hs-dropdown ti-dropdown  hidden sm:block [--placement:bottom-left]">
-                <button id="dropdown-flag" type="button"
-                  className="hs-dropdown-toggle ti-dropdown-toggle !p-0 flex-shrink-0  !border-0 !rounded-full !shadow-none">
-                  <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/flags/us_flag.jpg`} alt="flag-img" className="h-[1.75rem] w-[1.75rem] p-1 rounded-full" />
-                </button>
-
-                <div className="hs-dropdown-menu ti-dropdown-menu min-w-[10rem] hidden !-mt-3" aria-labelledby="dropdown-flag">
-                  <div className="ti-dropdown-divider divide-y divide-gray-200 dark:divide-white/10">
-                    <div className="py-2 first:pt-0 last:pb-0">
-                      <div className="ti-dropdown-item !p-[0.65rem] ">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] flex items-center w-[1.375rem] rounded-full">
-                            <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/flags/us_flag.jpg`} alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full" />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              English
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center rounded-full">
-                            <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/flags/spain_flag.jpg`} alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full" />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              Spanish
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center rounded-full">
-                            <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/flags/french_flag.jpg`} alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full" />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              French
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center rounded-full">
-                            <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/flags/germany_flag.jpg`} alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full" />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              German
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center rounded-full">
-                            <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/flags/italy_flag.jpg`} alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full" />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              Italian
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center  rounded-sm">
-                            <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/flags/russia_flag.jpg`} alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full" />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              Russian
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
+             
               <div className="header-element header-theme-mode hidden !items-center sm:block !py-[1rem] md:!px-[0.65rem] px-2" onClick={() => ToggleDark()}>
                 <Link aria-label="anchor"
                   className="hs-dark-mode-active:hidden flex hs-dark-mode group flex-shrink-0 justify-center items-center gap-2  rounded-full font-medium transition-all text-xs dark:bg-bgdark dark:hover:bg-black/20 dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10"
@@ -558,235 +453,8 @@ const Header = ({ local_varaiable, ThemeChanger }:any) => {
                   <i className="bx bx-sun header-link-icon"></i>
                 </Link>
               </div>
-              <div className="header-element cart-dropdown hs-dropdown ti-dropdown md:!block !hidden py-[1rem] md:px-[0.65rem] px-2 [--placement:bottom-right] rtl:[--placement:bottom-left]">
-                <button id="dropdown-cart" type="button"
-                  className="hs-dropdown-toggle relative ti-dropdown-toggle !p-0 !border-0 flex-shrink-0  !rounded-full !shadow-none align-middle text-xs">
-                  <i className="bx bx-cart header-link-icon"></i>
-                  <span className="flex absolute h-5 w-5 -top-[0.25rem] end-0 -me-[0.6rem]">
-                    <span className="relative inline-flex rounded-full h-[14.7px] w-[14px] text-[0.625rem] bg-primary text-white justify-center items-center"
-                      id="cart-icon-badge">{cartItemCount}</span>
-                  </span>
-                </button>
-
-                <div className="main-header-dropdown bg-white !-mt-3 !p-0 hs-dropdown-menu ti-dropdown-menu w-[22rem] border-0 border-defaultborder hidden"
-                  aria-labelledby="dropdown-cart">
-
-                  <div className="ti-dropdown-header !bg-transparent flex justify-between items-center !m-0 !p-4">
-                    <p className="text-defaulttextcolor  !text-[1.0625rem] dark:text-[#8c9097] dark:text-white/50 font-semibold">Cart Items</p>
-                    <Link href="#!"
-                      className="font-[600] py-[0.25/2rem] px-[0.45rem] rounded-[0.25rem] bg-success/10 text-success text-[0.75em] "
-                      id="cart-data">{cartItemCount} Item{cartItemCount !== 1 ? 's' : ''}</Link>
-                  </div>
-                  <div>
-                    <hr className="dropdown-divider dark:border-white/10" />
-                  </div>
-                  <ul className="list-none mb-0" id="header-cart-items-scroll">
-                  {cartItems.map((idx) => (
-                      <li className={`ti-dropdown-item border-b dark:border-defaultborder/10 border-defaultborder ${idx.class}`} key={Math.random()}>
-                        <div className="flex items-start cart-dropdown-item"> 
-
-                          <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}${idx.src}`} alt="img"
-                            className="!h-[1.75rem] !w-[1.75rem] leading-[1.75rem] text-[0.65rem] rounded-[50%] br-5 me-3" />
-
-                          <div className="grow">
-                            <div className="flex items-start justify-between mb-0">
-                              <div className="mb-0 !text-[0.8125rem] text-[#232323] font-semibold dark:text-[#8c9097] dark:text-white/50">
-                                <Link href="/components/pages/ecommerce/cart/">{idx.name}</Link>
-                              </div>
-
-                              <div className="inline-flex">
-                                <span className="text-black mb-1 dark:text-white !font-medium">{idx.price}</span>
-                                <Link aria-label="anchor" href="#!" className="header-cart-remove ltr:float-right rtl:float-left dropdown-item-close"  onClick={(event) => handleRemove(idx.id, event)}><i
-                                  className="ti ti-trash"></i></Link>
-                              </div>
-                            </div>
-                            <div className="min-w-fit flex  items-start justify-between">
-                              <ul className="header-product-item dark:text-white/50 flex">
-                                <li>{idx.color}</li>
-                                <li>{idx.text}</li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-
-                    ))}
-                  </ul>
-                  <div className={`p-3 empty-header-item border-t ${cartItemCount === 0 ? 'hidden' : 'block'}`}>
-                    <div className="grid">
-                      <Link href="/components/pages/ecommerce/checkout/" className="w-full ti-btn ti-btn-primary-full p-2">Proceed to checkout</Link>
-                    </div>
-                  </div>
-                  <div className={`p-[3rem] empty-item ${cartItemCount === 0 ? 'block' : 'hidden'}`}>
-                    <div className="text-center">
-                      <span className="!w-[4rem] !h-[4rem] !leading-[4rem] rounded-[50%] avatar bg-warning/10 !text-warning">
-                        <i className="ri-shopping-cart-2-line text-[2rem]"></i>
-                      </span>
-                      <h6 className="font-bold mb-1 mt-3 text-[1rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">Your Cart is Empty</h6>
-                      <span className="mb-3 !font-normal text-[0.8125rem] block text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">Add some items to make me happy :)</span>
-                      <Link href="/components/pages/ecommerce/products/" className="ti-btn ti-btn-primary btn-wave ti-btn-wave btn-sm m-1 !text-[0.75rem] !py-[0.25rem] !px-[0.5rem]"
-                        data-abc="true">continue shopping <i className="bi bi-arrow-right ms-1"></i></Link>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-              <div className="header-element py-[1rem] md:px-[0.65rem] px-2 notifications-dropdown header-notification hs-dropdown ti-dropdown !hidden md:!block [--placement:bottom-right]">
-                <button id="dropdown-notification" type="button"
-                  className="hs-dropdown-toggle relative ti-dropdown-toggle !p-0 !border-0 flex-shrink-0  !rounded-full !shadow-none align-middle text-xs">
-                  <i className="bx bx-bell header-link-icon  text-[1.125rem]"></i>
-                  <span className="flex absolute h-5 w-5 -top-[0.25rem] end-0  -me-[0.6rem]">
-                    <span
-                      className="animate-slow-ping absolute inline-flex -top-[2px] -start-[2px] h-full w-full rounded-full bg-secondary/40 opacity-75"></span>
-                    <span
-                      className="relative inline-flex justify-center items-center rounded-full  h-[14.7px] w-[14px] bg-secondary text-[0.625rem] text-white"
-                      id="notification-icon-badge">{notifications.length}</span>
-                  </span>
-                </button>
-                <div className="main-header-dropdown !-mt-3 !p-0 hs-dropdown-menu ti-dropdown-menu bg-white !w-[22rem] border-0 border-defaultborder hidden !m-0"
-                  aria-labelledby="dropdown-notification">
-
-                  <div className="ti-dropdown-header !m-0 !p-4 !bg-transparent flex justify-between items-center">
-                    <p className="mb-0 text-[1.0625rem] text-defaulttextcolor font-semibold dark:text-[#8c9097] dark:text-white/50">Notifications</p>
-                    <span className="text-[0.75em] py-[0.25rem/2] px-[0.45rem] font-[600] rounded-sm bg-secondary/10 text-secondary"
-                      id="notifiation-data">{`${notifications.length} Unread`}</span>
-                  </div>
-                  <div className="dropdown-divider"></div>
-                  <ul className="list-none !m-0 !p-0 end-0" id="header-notification-scroll">
-                  {notifications.map((idx, index) => (
-                      <li className="ti-dropdown-item dropdown-item" key={Math.random()}>
-                        <div className="flex items-start">
-                          <div className="pe-2">
-                            <span
-                              className={`inline-flex text-${idx.color2} justify-center items-center !w-[2.5rem] !h-[2.5rem] !leading-[2.5rem] !text-[0.8rem] ${idx.color} !rounded-[50%]`}><i
-                                className={`ti ti-${idx.icon} text-[1.125rem]`}></i></span>
-                          </div>
-                          <div className="grow flex items-center justify-between">
-                            <div>
-                              <p className="mb-0 text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50 text-[0.8125rem] font-semibold"><Link
-                                href="/components/pages/notifications/">{idx.class} {idx.class2}</Link></p>
-                              <span className="text-[#8c9097] dark:text-white/50 font-normal text-[0.75rem] header-notification-text">{idx.data}</span>
-                            </div>
-                            <div>
-                              <Link aria-label="anchor" href="#!" className="min-w-fit text-[#8c9097] dark:text-white/50 me-1 dropdown-item-close1" onClick={(event) => handleNotificationClose(index, event)}><i
-                                className="ti ti-x text-[1rem]"></i></Link>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className={`p-4 empty-header-item1 border-t mt-2 ${notifications.length === 0 ? 'hidden' : 'block'}`}>
-                    <div className="grid">
-                      <Link href="/components/pages/notifications/" className="ti-btn ti-btn-primary-full !m-0 w-full p-2">View All</Link>
-                    </div>
-                  </div>
-                  <div className={`p-[3rem] empty-item1 ${notifications.length === 0 ? 'block' : 'hidden'}`}>
-                    <div className="text-center">
-                      <span className="!h-[4rem]  !w-[4rem] avatar !leading-[4rem] !rounded-full !bg-secondary/10 !text-secondary">
-                        <i className="ri-notification-off-line text-[2rem]  "></i>
-                      </span>
-                      <h6 className="font-semibold mt-3 text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50 text-[1rem]">No New Notifications</h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="header-element header-apps dark:text-[#8c9097] dark:text-white/50 py-[1rem] md:px-[0.65rem] px-2 hs-dropdown ti-dropdown md:!block !hidden [--placement:bottom-left]">
-
-                <button aria-label="button" id="dropdown-apps" type="button"
-                  className="hs-dropdown-toggle ti-dropdown-toggle !p-0 !border-0 flex-shrink-0  !rounded-full !shadow-none text-xs">
-                  <i className="bx bx-grid-alt header-link-icon text-[1.125rem]"></i>
-                </button>
-
-                <div
-                  className="main-header-dropdown !-mt-3 hs-dropdown-menu ti-dropdown-menu !w-[22rem] border-0 border-defaultborder   hidden"
-                  aria-labelledby="dropdown-apps">
-
-                  <div className="p-4">
-                    <div className="flex items-center justify-between">
-                      <p className="mb-0 text-defaulttextcolor text-[1.0625rem] dark:text-[#8c9097] dark:text-white/50 font-semibold">Related Apps</p>
-                    </div>
-                  </div>
-                  <div className="dropdown-divider mb-0"></div>
-                  <div className="ti-dropdown-divider divide-y divide-gray-200 dark:divide-white/10 main-header-shortcuts p-2" id="header-shortcut-scroll">
-                    <div className="grid grid-cols-3 gap-2">
-                      <div className="">
-                        <Link href="#!" className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20">
-                          <div>
-                            <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/apps/figma.png`} alt="figma"
-                              className="!h-[1.75rem] !w-[1.75rem] text-2xl avatar text-primary flex justify-center items-center mx-auto" />
-                            <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">Figma</div>
-                          </div>
-                        </Link>
-                      </div>
-                      <div className="">
-                        <Link href="#!" className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20">
-                          <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/apps/microsoft-powerpoint.png`} alt="miscrosoft"
-                            className="leading-[1.75] text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto" />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">Power Point</div>
-                        </Link>
-                      </div>
-                      <div className="">
-                        <Link href="#!" className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20">
-                          <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/apps/microsoft-word.png`} alt="miscrodoftword"
-                            className="leading-none
-                         text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto"/>
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">MS Word</div>
-                        </Link>
-                      </div>
-                      <div className="">
-                        <Link href="#!" className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20">
-                          <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/apps/calender.png`} alt="calander"
-                            className="leading-none text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto" />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">Calendar</div>
-                        </Link>
-                      </div>
-                      <div className="">
-                        <Link href="#!" className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20">
-                          <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/apps/sketch.png`} alt="apps"
-                            className="leading-none text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto" />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">Sketch</div>
-                        </Link>
-                      </div>
-                      <div className="">
-                        <Link href="#!" className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20">
-                          <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/apps/google-docs.png`} alt="docs"
-                            className="leading-none text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto" />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">Docs</div>
-                        </Link>
-                      </div>
-                      <div className="">
-                        <Link href="#!" className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20">
-                          <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/apps/google.png`} alt="google"
-                            className="leading-none text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto" />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">Google</div>
-                        </Link>
-                      </div>
-                      <div className="">
-                        <Link href="#!" className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20">
-                          <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/apps/translate.png`} alt="translate"
-                            className="leading-none text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto" />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">Translate</div>
-                        </Link>
-                      </div>
-                      <div className="">
-                        <Link href="#!" className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20">
-                          <img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/apps/google-sheets.png`} alt="sheets"
-                            className="leading-none text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto" />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">Sheets</div>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 first:pt-0 border-t">
-                    <Link className="w-full ti-btn ti-btn-primary-full p-2 !m-0" href="#!">
-                      View All
-                    </Link>
-                  </div>
-
-                </div>
-              </div>
+             
+             
               <div className="header-element header-fullscreen py-[1rem] md:px-[0.65rem] px-2">
                 <Link aria-label="anchor"
                   onClick={() => toggleFullscreen()}
@@ -802,15 +470,15 @@ const Header = ({ local_varaiable, ThemeChanger }:any) => {
               <div className="header-element md:!px-[0.65rem] px-2 hs-dropdown !items-center ti-dropdown [--placement:bottom-left]">
 
                 <button id="dropdown-profile" type="button"
-                  className="hs-dropdown-toggle ti-dropdown-toggle !gap-2 !p-0 flex-shrink-0 sm:me-2 me-0 !rounded-full !shadow-none text-xs align-middle !border-0 !shadow-transparent ">
-                  <img className="inline-block rounded-full " src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/images/faces/9.jpg`} width="32" height="32" alt="Image Description" />
+                  className="hs-dropdown-toggle ti  ti-dropdown-toggle !gap-2 !p-0 flex-shrink-0 sm:me-2 me-0 !rounded-full !shadow-none text-xs align-middle !border-0 !shadow-transparent ">
+                  <img className="inline-block rounded-full " src="https://res.cloudinary.com/dl7eouhxf/image/upload/v1729179865/profile-icon-png-910.png" width="32" height="32" alt="Image Description" />
                 </button>
                 <div className="md:block hidden dropdown-profile">
                   <p className="font-semibold mb-0 leading-none text-[#536485] text-[0.813rem] ">{name}</p>
                   <span className="opacity-[0.7] font-normal text-[#536485] block text-[0.6875rem] ">{user}</span>
                 </div>
                 <div
-                  className="hs-dropdown-menu ti-dropdown-menu !-mt-3 border-0 w-[11rem] !p-0 border-defaultborder hidden main-header-dropdown  pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
+                  className="hs-dropdown-menu ti-dropdown-menu  !-mt-3 border-0 w-[11rem] !p-0 border-defaultborder hidden main-header-dropdown  pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
                   aria-labelledby="dropdown-profile">
 
                   <ul className="text-defaulttextcolor font-medium dark:text-[#8c9097] dark:text-white/50">
@@ -819,32 +487,20 @@ const Header = ({ local_varaiable, ThemeChanger }:any) => {
                         <i className="ti ti-user-circle text-[1.125rem] me-2 opacity-[0.7]"></i>Profile
                       </Link>
                     </li>
-                    <li>
-                      <Link className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex" href="/components/pages/email/mail-app/"><i
-                        className="ti ti-inbox text-[1.125rem] me-2 opacity-[0.7]"></i>Inbox <span
-                          className="!py-1 !px-[0.45rem] !font-semibold !rounded-sm text-success text-[0.75em] bg-success/10 ms-auto">25</span>
-                      </Link>
-                    </li>
-                    <li><Link className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex" href="/components/pages/todo-list/"><i
-                      className="ti ti-clipboard-check text-[1.125rem] me-2 opacity-[0.7]"></i>Task Manager</Link></li>
-                    <li><Link className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex" href="/components/pages/email/mail-settings/"><i
-                      className="ti ti-adjustments-horizontal text-[1.125rem] me-2 opacity-[0.7]"></i>Settings</Link></li>
+                    
+                    
                     <li><Link className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex " href="#!"><i
                       className="ti ti-wallet text-[1.125rem] me-2 opacity-[0.7]"></i>Bal: $7,12,950</Link></li>
-                    <li><Link className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex" href="/components/pages/chat/"><i
-                      className="ti ti-headset text-[1.125rem] me-2 opacity-[0.7]"></i>Support</Link></li>
-                    <li><button className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex" onClick={ loggedOut}><i
+                    {/* <li><Link className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex" href="/components/pages/chat/"><i
+                      className="ti ti-headset text-[1.125rem] me-2 opacity-[0.7]"></i>Support</Link></li> */}
+                    <li>
+                      
+                      <button className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex" onClick={ loggedOut}><i
                       className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>Log Out</button></li>
                   </ul>
                 </div>
               </div>
-              <div className="header-element md:px-[0.48rem]">
-                <button aria-label="button" type="button"
-                  className="hs-dropdown-toggle switcher-icon inline-flex flex-shrink-0 justify-center items-center gap-2  rounded-full font-medium  align-middle transition-all text-xs dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10"
-                  data-hs-overlay="#hs-overlay-switcher">
-                  <i className="bx bx-cog header-link-icon animate-spin-slow"></i>
-                </button>
-              </div>
+             
             </div>
           </div>
         </nav>

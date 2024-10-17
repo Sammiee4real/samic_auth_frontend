@@ -42,10 +42,10 @@ export const MenuItems : any= [
         menutitle: "MAIN",
 },
 
-            {icon: DashboardIcon, badgetxt: badge, title: 'Dashboards', type: "sub", active: false, children: [
-                    {path: "/dashboards/crm", type: "link", active: false, selected: false, title: "CRM" },
-                    {path: "/dashboards/ecommerce", type: "link", active: false, selected: false, title: "Ecommerce" },
-                    {path: "/dashboards/crypto", type: "link", active: false, selected: false, title: "Crypto" },
+            {icon: DashboardIcon, badgetxt: badge, title: 'Dashboard', type: "sub", active: false, children: [
+                    {path: "/dashboards/overview", type: "link", active: false, selected: false, title: "Overview" },
+                    {path: "/dashboards/users", type: "link", active: false, selected: false, title: "Users" },
+                    {path: "/dashboards/automation", type: "link", active: false, selected: false, title: "Automation" },
                     {path: "dashboards/jobs", type: "link", active: false, selected: false, title: "Jobs" },
                     {path: "/components/dashboards/nft", type: "link", active: false, selected: false, title: "NFT" },
                     {path: "/dashboards/sales", type: "link", active: false, selected: false, title: "Sales" },
@@ -54,7 +54,7 @@ export const MenuItems : any= [
                     {path: "/dashboards/hrm", type: "link", active: false, selected: false, title: "HRM" },
                     {path: "/dashboards/stocks", type: "link", active: false, selected: false, title: "Stocks" },
                     {path: "/components/dashboards/courses", type: "link", active: false, selected: false, title: "Courses" },
-                    {path: "/components/dashboards/personal", type: "link", active: false, selected: false, title: "Personal" },
+                    {path: "/dashboards/personal", type: "link", active: false, selected: false, title: "Personal" },
 
                 ]
             },

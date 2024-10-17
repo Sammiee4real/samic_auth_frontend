@@ -9,11 +9,12 @@ import { updateUser } from "@/src/auth/auth.slice";
 import { useCookies } from "react-cookie";
 import { userCookieConfig } from "../../helpers";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer, } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
-const Firebaselogin = () => {
+const ResetPassword = () => {
   const [passwordshow1, setpasswordshow1] = useState(false);
+  const [passwordshow2, setpasswordshow2] = useState(false);
   const dispatch = useAppDispatch();
 
   const [err, setError] = useState("");
@@ -23,8 +24,13 @@ const Firebaselogin = () => {
   });
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const [otp, setOtp] = useState("")
   const [emailMessage, setEmailMessage] = useState("");
+  const [newPasswordMessage, setNewPasswordMessage]  = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
+  const [otpMessage, setOtpMessage] = useState("")
   const [cookie, setCookie] = useCookies(["user"]);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorCheck, setErrorCheck] = useState(false);
@@ -55,10 +61,15 @@ const Firebaselogin = () => {
   // }
   // };
 
-  const loginHandler = async () => {
-    if (email.length == 0 && password.length == 0) {
+  const resetPasswordHamdler = async () => {
+    if (email.length == 0 && password.length == 0 && newPassword.length == 0 && otp.length == 0) {
       setEmailMessage("Email field is required");
       setPasswordMessage("Password field is required");
+      setNewPasswordMessage("Confirm password field is required");
+      setOtpMessage("Otp code is required")
+     
+    }else if (password !== newPassword){
+        setNewPasswordMessage("Password does not match!")
     } else if (email.length == 0) {
       setEmailMessage("Email field is required");
       setPasswordMessage("");
@@ -68,27 +79,24 @@ const Firebaselogin = () => {
     } else {
       try {
         setIsLoading(true);
-        const result = await axiosInstance.post("/auth/login", {
+        const result = await axiosInstance.post("/auth/complete_password_reset", {
           email: email,
           password: password,
+          confirm_password: newPassword,
+          reset_code: otp
         });
 
         if (result.data.code === 200) {
-          const userData = {
-            user: { ...result.data.data },
-          };
-          setCookie("user", JSON.stringify(userData), userCookieConfig);
-          dispatch(updateUser(result?.data?.data));
+          
+         toast(result.data.message)
+          router.push("/signin");
           setIsLoading(false);
-          toast("Signin Successful!");
-          router.push("/dashboards/overview");
-          setErrorCheck(false);
           console.log(result);
         } else {
-          setErrorCheck(true);
-          // setErrorMessage(result.data.message)
-          toast.error(result.data.message);
+          
+          toast.error(result.data.data)
           setIsLoading(false);
+          
         }
       } catch (err: any) {
         setIsLoading(false);
@@ -96,6 +104,30 @@ const Firebaselogin = () => {
       }
     }
   };
+
+  const resendOtp = async () =>{
+    try {
+        
+        const result = await axiosInstance.post("/auth/resend_otp_code", {
+          email: email,
+          
+        });
+
+        if (result.data.code === 200) {
+          setErrorCheck(false);
+         
+          toast(result.data.message);
+        } else {
+          setErrorCheck(true);
+          setErrorMessage(result.data.data);
+         
+        }
+      } catch (err: any) {
+        setIsLoading(false);
+        console.log("login error", err);
+      }
+
+  }
 
   return (
     <Fragment>
@@ -112,30 +144,32 @@ const Firebaselogin = () => {
                   aria-labelledby="pills-with-brand-color-item-1"
                 >
                   <div className="flex justify-center">
-                    <img
-                      alt=""
-                      src="https://samicsub.com/l_asset/img/samic-dark.png"
-                      className="h-10 w-auto"
-                    />
-                  </div>
-                  <p className="h5 font-semibold mb-2 text-center">Sign In</p>
+                  <img
+                alt=""
+                src="https://samicsub.com/l_asset/img/samic-dark.png"
+                className="h-10 w-auto"
+              />
 
-                  <p className="mb-4 text-[#8c9097] dark:text-white/50 opacity-[0.7] font-normal text-center">
-                    Welcome back!
+                  </div>
+
+                  <p className="h5 font-semibold mb-2 text-center">
+                    Reset Password
                   </p>
+                  <p className="mb-4 text-[#8c9097] text-primary opacity-[0.7] font-normal ">
+                    A reset code has been sent to your email.
+                  </p>
+                  
+                 
+
+                  <ToastContainer theme="light"></ToastContainer>
                   <div className="grid grid-cols-12 gap-y-4">
                     <div className="xl:col-span-12 col-span-12">
-                      <label
-                        htmlFor="signin-email"
-                        className="form-label text-default"
-                      >
-                        Email
-                      </label>
                       <input
                         type="text"
                         name="email"
                         className="form-control form-control-lg w-full !rounded-md"
                         id="email"
+                        placeholder="Email"
                         onChange={(e) => {
                           setEmail(e.target.value);
                           // Clear error message if the email field is not empty
@@ -147,22 +181,11 @@ const Firebaselogin = () => {
                       />
                       <p className="text-danger pt-2">{emailMessage}</p>
                     </div>
+
                     <div className="xl:col-span-12 col-span-12 mb-2">
-                      <label
-                        htmlFor="signin-password"
-                        className="form-label text-default block"
-                      >
-                        Password
-                        <Link
-                          href="/forgot-password"
-                          className="float-right text-danger"
-                        >
-                          Forgot password ?
-                        </Link>
-                      </label>
                       <div className="input-group">
                         <input
-                          name="password"
+                          name="New Password"
                           type={passwordshow1 ? "text" : "password"}
                           value={password}
                           onChange={(e) => {
@@ -173,8 +196,8 @@ const Firebaselogin = () => {
                             }
                           }}
                           className="form-control form-control-lg !rounded-s-md"
-                          id="signin-password"
-                          placeholder="password"
+                          id="new-password"
+                          placeholder="New Password"
                         />
 
                         <button
@@ -192,37 +215,79 @@ const Firebaselogin = () => {
                         </button>
                       </div>
                       <p className="text-danger pt-2">{passwordMessage}</p>
-                      <div className="mt-2">
-                        <div className="form-check !ps-0">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="defaultCheck1"
-                          />
-                        </div>
-                      </div>
                     </div>
-                    <ToastContainer theme="light"></ToastContainer>
+                    <div className="xl:col-span-12 col-span-12 mb-2">
+                      <div className="input-group">
+                        <input
+                          name="Confirm Password"
+                          type={passwordshow2 ? "text" : "password"}
+                          value={newPassword}
+                          onChange={(e) => {
+                            setNewPassword(e.target.value);
+                            // Clear error message if the email field is not empty
+                            if (e.target.value.length > 0) {
+                                setNewPasswordMessage("");
+                            }
+                          }}
+                          className="form-control form-control-lg !rounded-s-md"
+                          id="confirm-password"
+                          placeholder="Confirm Password"
+                        />
+
+                        <button
+                          onClick={() => setpasswordshow2(!passwordshow2)}
+                          aria-label="button"
+                          className="ti-btn ti-btn-light !rounded-s-none !mb-0"
+                          type="button"
+                          id="button-addon2"
+                        >
+                          <i
+                            className={`${
+                              passwordshow2 ? "ri-eye-line" : "ri-eye-off-line"
+                            } align-middle`}
+                          ></i>
+                        </button>
+                      </div>
+                      <p className="text-danger pt-2">{newPasswordMessage}</p>
+                    </div>
+                    <div className="xl:col-span-12 col-span-12">
+                      <input
+                        type="text"
+                        name="code"
+                        className="form-control form-control-lg w-full !rounded-md"
+                        id="code"
+                        placeholder="Reset code"
+                        onChange={(e) => {
+                          setOtp(e.target.value);
+                          // Clear error message if the email field is not empty
+                          if (e.target.value.length > 0) {
+                            setOtpMessage("");
+                          }
+                        }}
+                        value={otp}
+                      />
+                      <p className="text-danger pt-2 ">{otpMessage}</p>
+                    </div>
+
                     <div className="xl:col-span-12 col-span-12 grid mt-2">
                       {/* <Link  href="" className="ti-btn ti-btn-primary !bg-primary !text-white !font-medium">Sign In</Link> */}
                       <button
-                        type="button"
-                        onClick={loginHandler}
-                        className="btn-primary  !font-medium shadow"
-                        disabled={isLoading}
-                      >
-                        {isLoading ? "Signing In..." : "Sign In"}
-                      </button>
+                          type="button"
+                          onClick={resetPasswordHamdler}
+                          className="btn-primary !font-medium shadow"
+                          disabled={isLoading}
+                        >
+                          {isLoading ? "Sending..." : "Send"}
+                        </button>
                     </div>
                   </div>
                   <div className="text-center">
-                    <p className="text-[0.75rem] text-dark dark:text-white/50 mt-4">
-                      Dont have an account?{" "}
-                      <Link href="/signup" className="text-primary">
-                        Sign Up
-                      </Link>
-                    </p>
+                    <div className="flex justify-center items-center space-x-1 text-[0.75rem] text-[#8c9097] dark:text-white/50 mt-4">
+                      <p>Didn't get OTP?</p>
+                      <p className="text-primary underline cursor-pointer" onClick={resendOtp }>
+                        Resend OTP
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -235,4 +300,4 @@ const Firebaselogin = () => {
   );
 };
 
-export default Firebaselogin;
+export default ResetPassword;

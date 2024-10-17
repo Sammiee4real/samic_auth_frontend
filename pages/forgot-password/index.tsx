@@ -9,10 +9,11 @@ import { updateUser } from "@/src/auth/auth.slice";
 import { useCookies } from "react-cookie";
 import { userCookieConfig } from "../../helpers";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast ,  ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Firebaselogin = () => {
+
+const ForgotPassword = () => {
   const [passwordshow1, setpasswordshow1] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -55,44 +56,37 @@ const Firebaselogin = () => {
   // }
   // };
 
-  const loginHandler = async () => {
-    if (email.length == 0 && password.length == 0) {
-      setEmailMessage("Email field is required");
-      setPasswordMessage("Password field is required");
-    } else if (email.length == 0) {
+  const forgotPasswordHandler = async () => {
+    if (email.length == 0) {
       setEmailMessage("Email field is required");
       setPasswordMessage("");
-    } else if (password.length == 0) {
-      setEmailMessage("");
-      setPasswordMessage("Password field is required");
     } else {
       try {
         setIsLoading(true);
-        const result = await axiosInstance.post("/auth/login", {
+        const result = await axiosInstance.post("/auth/forgot_password", {
           email: email,
-          password: password,
+         
         });
-
-        if (result.data.code === 200) {
-          const userData = {
-            user: { ...result.data.data },
-          };
-          setCookie("user", JSON.stringify(userData), userCookieConfig);
-          dispatch(updateUser(result?.data?.data));
-          setIsLoading(false);
-          toast("Signin Successful!");
-          router.push("/dashboards/overview");
-          setErrorCheck(false);
-          console.log(result);
-        } else {
-          setErrorCheck(true);
-          // setErrorMessage(result.data.message)
-          toast.error(result.data.message);
-          setIsLoading(false);
-        }
+       
+       if(result.data.code === 200){
+        const userData = {
+          user: { ...result.data.data },
+        };
+        setCookie("user", JSON.stringify(userData), userCookieConfig);
+      
+        setIsLoading(false);
+        toast(result.data.message)
+        router.push("/reset-password");
+        setErrorCheck(false)
+        console.log(result);
+       } else{
+        setErrorCheck(true)
+        toast.error(result.data.data)
+        setIsLoading(false);
+       }
       } catch (err: any) {
         setIsLoading(false);
-        console.log("login error", err);
+        console.log("login error",err);
       }
     }
   };
@@ -112,16 +106,18 @@ const Firebaselogin = () => {
                   aria-labelledby="pills-with-brand-color-item-1"
                 >
                   <div className="flex justify-center">
-                    <img
-                      alt=""
-                      src="https://samicsub.com/l_asset/img/samic-dark.png"
-                      className="h-10 w-auto"
-                    />
+                  <img
+                alt=""
+                src="https://samicsub.com/l_asset/img/samic-dark.png"
+                className="h-10 w-auto"
+              />
                   </div>
-                  <p className="h5 font-semibold mb-2 text-center">Sign In</p>
+                  <p className="h5 font-semibold mb-2 text-center">Forgot Password?</p>
+                 
+                 
 
                   <p className="mb-4 text-[#8c9097] dark:text-white/50 opacity-[0.7] font-normal text-center">
-                    Welcome back!
+                  Don't worry we can help. A code will be sent to your registered email for verification. 
                   </p>
                   <div className="grid grid-cols-12 gap-y-4">
                     <div className="xl:col-span-12 col-span-12">
@@ -147,83 +143,20 @@ const Firebaselogin = () => {
                       />
                       <p className="text-danger pt-2">{emailMessage}</p>
                     </div>
-                    <div className="xl:col-span-12 col-span-12 mb-2">
-                      <label
-                        htmlFor="signin-password"
-                        className="form-label text-default block"
-                      >
-                        Password
-                        <Link
-                          href="/forgot-password"
-                          className="float-right text-danger"
-                        >
-                          Forgot password ?
-                        </Link>
-                      </label>
-                      <div className="input-group">
-                        <input
-                          name="password"
-                          type={passwordshow1 ? "text" : "password"}
-                          value={password}
-                          onChange={(e) => {
-                            setPassword(e.target.value);
-                            // Clear error message if the email field is not empty
-                            if (e.target.value.length > 0) {
-                              setPasswordMessage("");
-                            }
-                          }}
-                          className="form-control form-control-lg !rounded-s-md"
-                          id="signin-password"
-                          placeholder="password"
-                        />
-
-                        <button
-                          onClick={() => setpasswordshow1(!passwordshow1)}
-                          aria-label="button"
-                          className="ti-btn ti-btn-light !rounded-s-none !mb-0"
-                          type="button"
-                          id="button-addon2"
-                        >
-                          <i
-                            className={`${
-                              passwordshow1 ? "ri-eye-line" : "ri-eye-off-line"
-                            } align-middle`}
-                          ></i>
-                        </button>
-                      </div>
-                      <p className="text-danger pt-2">{passwordMessage}</p>
-                      <div className="mt-2">
-                        <div className="form-check !ps-0">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="defaultCheck1"
-                          />
-                        </div>
-                      </div>
-                    </div>
                     <ToastContainer theme="light"></ToastContainer>
                     <div className="xl:col-span-12 col-span-12 grid mt-2">
                       {/* <Link  href="" className="ti-btn ti-btn-primary !bg-primary !text-white !font-medium">Sign In</Link> */}
                       <button
-                        type="button"
-                        onClick={loginHandler}
-                        className="btn-primary  !font-medium shadow"
-                        disabled={isLoading}
-                      >
-                        {isLoading ? "Signing In..." : "Sign In"}
-                      </button>
+                          type="button"
+                          onClick={forgotPasswordHandler}
+                          className="btn-primary !font-medium shadow"
+                          disabled={isLoading}
+                        >
+                          {isLoading ? "Sending..." : "Send Code"}
+                        </button>
                     </div>
                   </div>
-                  <div className="text-center">
-                    <p className="text-[0.75rem] text-dark dark:text-white/50 mt-4">
-                      Dont have an account?{" "}
-                      <Link href="/signup" className="text-primary">
-                        Sign Up
-                      </Link>
-                    </p>
-                  </div>
+                 
                 </div>
               </div>
             </div>
@@ -235,4 +168,4 @@ const Firebaselogin = () => {
   );
 };
 
-export default Firebaselogin;
+export default ForgotPassword;
